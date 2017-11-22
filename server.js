@@ -1,6 +1,16 @@
 var express = require('express');
 var mailController = require('./controllers/mailController.js');
 var app = express();
+app.enable('trust proxy');
+app.use (function (req, res, next) {
+        if (req.secure) {
+                // request was via https, so do no special handling
+                next();
+        } else {
+                // request was via http, so redirect to https
+                res.redirect('https://' + req.headers.host + req.url);
+        }
+});
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -15,16 +25,6 @@ app.get('/cgv', function(req, res) { res.render("cgv.ejs"); });
 app.get('/aboutus', function(req, res) { res.render("about.ejs"); });
 app.get('/contactus', mailController.sendEmail);
 
-app.listen(process.env.PORT || 8080);
+app.listen(8080);
 
-app.enable('trust proxy');
 
-app.use (function (req, res, next) {
-        if (req.secure) {
-                // request was via https, so do no special handling
-                next();
-        } else {
-                // request was via http, so redirect to https
-                res.redirect('https://' + req.headers.host + req.url);
-        }
-});
