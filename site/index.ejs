@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="SmartHoldr - Commandez votre étui de poche">
     <meta name="author" content="">
-    <link rel="img/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
       <meta property="og:image" content="img/logo.png" />
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="140">
@@ -82,7 +82,7 @@
             <div class="col-lg-4 text-center">
               <img src="img/sample.png" alt="Un porte-cartes aux couleurs de votre marque" />
             </div>
-            <div class="col-lg-8" style="text-align:left;">
+            <div class="col-lg-8 text-center">
 
               <p class="text-faded" style="color:#000;">
                 <span style="color:#1b98bb">
@@ -192,7 +192,7 @@
             <hr class="primary">
           </div>
         </div>
-        <div id="form"></div>
+        <div id="form">
     <div style="text-align:center;padding-left:30%">
         <div class="form-group">
             <input type="text" class="form-control" id="name" placeholder="Votre nom" style="width:60%;" />
@@ -213,6 +213,7 @@
 <div style="text-align:center;">
   <button class="btn btn-primary btn-xl js-scroll-trigger" id="send">Envoyer</button>  
 </div>
+  </div>
   </div>
   
       </div>
@@ -305,7 +306,7 @@ $.ajax(settings)
 .done(function (response) { 
   $('#load').hide();
   $('#form').css('padding-left', '0px');
-  $('#form').html('<span style=\"color:#5cb85c;\"><b>Votre demande a correctement été prise en compte.</b></span>');
+  $('#form').html('<span style=\"color:#5cb85c;\"><b>Votre demande a correctement été prise en compte.<br />Vous recevrez une réponse sous 12h.</b></span>');
  });
 }
 

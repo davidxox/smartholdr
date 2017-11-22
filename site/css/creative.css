@@ -10,6 +10,18 @@ Blue 2 : 1b98bb;
  */
 
 
+ @media (max-width: 767px) {
+  .row.reorder-xs {
+    transform: rotate(180deg);
+    direction: rtl; /* Fix the horizontal alignment */
+  }
+
+  .row.reorder-xs > [class*="col-"] {
+    transform: rotate(-180deg);
+    direction: ltr; /* Fix the horizontal alignment */
+  }
+}
+
 .loading {
   position: fixed;
   top: 40%;

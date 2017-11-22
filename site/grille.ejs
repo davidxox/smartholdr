@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="SmartHoldr - Commandez votre étui de poche">
     <meta name="author" content="">
-    <link rel="img/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
       <meta property="og:image" content="img/logo.png" />
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="140">
@@ -60,9 +60,46 @@
       </div>
     </nav>
 
-    <section id="services" style="padding-bottom:70px;">
+    <section style="padding: 110px 0;">
+        <div class="container text-center">
+            <h2>Grille Tarifaire 2017</h2>
+            <hr>
+          </div>
+
       <div class="container" style="text-align:center;">
-          <img src="/img/grille.jpg" style="width:70%;" />
+
+          <div class="table-responsive">          
+              <table class="table table-bordered">
+                <thead style="text-align:center;">
+                  <tr class="bg-info" style="color:#FFF;text-align:center;" >
+                    <th>Quantité</th>
+                    <th style="text-align:center;">500</th>
+                    <th style="text-align:center;">1000-2500</th>
+                    <th style="text-align:center;">2500-5000</th>
+                    <th style="text-align:center;">5000-10000</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="background-color:#20CFEB;text-align:left;">Prix</td>
+                    <td>0,80 €</td>
+                    <td>0,70 €</td>
+                    <td>0,63 €</td>
+                    <td>0,50 €</td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+
+<strong>BAT : 15€/couleur logo - Offert à partir de 5000 pièces.
+<br /><br />
+Livraison départ Paris : Transporteur à communiquer.</strong>
+<br /><br />
+              <div style="text-align:center;">
+                <h4>Contact</h4>
+                <a href="mailto:contact@smartholdr.fr" style="color:#000"><u>contact@smartholdr.fr</u></a>
+              </div>
+
       </div>
     </section>
 
@@ -101,69 +138,6 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.js"></script>
-    <script>
-
-
-
-
-function validateEmail(email) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-}
-    $('#send').click(function(e) {
-
-// Check error
-
-    var mail = $('#mail').val();
-    var content = $('#contentMail').val();
-    var name = $('#name').val();
-    var bool_continue = true;
-      if(!mail) {  
-
-        bool_continue = false;
-          $('#mail').css('border', '1px solid red');
-       }
-
-
-
-         if(!validateEmail(mail)) {
-          bool_continue = false;
-          $('#mail').css('border', '1px solid red');
-         $('#errormail').html('<span style=\"color:#d9534f\">Cette adresse e-mail n\'est pas correcte !</span>');
-       }
-      if(!content) {  
-
-        bool_continue = false;
-          $('#contentMail').css('border', '1px solid #d9534f');
-       }
-       if(!name) {  
-
-        bool_continue = false;
-          $('#name').css('border', '1px solid #d9534f');
-       }       
-
-if(bool_continue) {
-  
-  $('#load').show();
-var settings = { 
-  "async": true, 
-  "crossDomain": true, 
-  "url": "/contactus", 
-  "method": "GET", 
-  "headers": { "content-type": "application/x-www-form-urlencoded" }, 
-  "data": { "email" : mail, "content": content, "name": name }
-} 
-$.ajax(settings)
-.done(function (response) { 
-  $('#load').hide();
-  $('#form').css('padding-left', '0px');
-  $('#form').html('<span style=\"color:#5cb85c;\"><b>Votre demande a correctement été prise en compte.</b></span>');
- });
-}
-
-
-    })
-    </script>
 
   </body>
 

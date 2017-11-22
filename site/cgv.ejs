@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="SmartHoldr - Commandez votre étui de poche">
     <meta name="author" content="">
-    <link rel="img/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
       <meta property="og:image" content="img/logo.png" />
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="140">
@@ -204,69 +204,6 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.js"></script>
-    <script>
-
-
-
-
-function validateEmail(email) {
-  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-}
-    $('#send').click(function(e) {
-
-// Check error
-
-    var mail = $('#mail').val();
-    var content = $('#contentMail').val();
-    var name = $('#name').val();
-    var bool_continue = true;
-      if(!mail) {  
-
-        bool_continue = false;
-          $('#mail').css('border', '1px solid red');
-       }
-
-
-
-         if(!validateEmail(mail)) {
-          bool_continue = false;
-          $('#mail').css('border', '1px solid red');
-         $('#errormail').html('<span style=\"color:#d9534f\">Cette adresse e-mail n\'est pas correcte !</span>');
-       }
-      if(!content) {  
-
-        bool_continue = false;
-          $('#contentMail').css('border', '1px solid #d9534f');
-       }
-       if(!name) {  
-
-        bool_continue = false;
-          $('#name').css('border', '1px solid #d9534f');
-       }       
-
-if(bool_continue) {
-  
-  $('#load').show();
-var settings = { 
-  "async": true, 
-  "crossDomain": true, 
-  "url": "/contactus", 
-  "method": "GET", 
-  "headers": { "content-type": "application/x-www-form-urlencoded" }, 
-  "data": { "email" : mail, "content": content, "name": name }
-} 
-$.ajax(settings)
-.done(function (response) { 
-  $('#load').hide();
-  $('#form').css('padding-left', '0px');
-  $('#form').html('<span style=\"color:#5cb85c;\"><b>Votre demande a correctement été prise en compte.</b></span>');
- });
-}
-
-
-    })
-    </script>
 
   </body>
 
