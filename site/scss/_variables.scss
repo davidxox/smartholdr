@@ -1,4 +1,14 @@
 // Variables
+$custom-file-text: (
+    placeholder: (
+      en: "po",
+      fr: "Choisir un fichier"
+    ),
+    button-label: (
+      en: "Bdz",
+      fr: "Envoyer"
+    )
+  );
 
 // Gray and Brand Colors for use across theme
 
@@ -10,3 +20,4 @@ $gray-dark: lighten($gray-base, 20%) !default;
 $gray: lighten($gray-base, 33.5%) !default;
 $gray-light: lighten($gray-base, 46.7%) !default;
 $gray-lighter: lighten($gray-base, 93.5%) !default;
+

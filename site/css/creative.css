@@ -9,6 +9,19 @@ Blue 2 : 1b98bb;
 
  */
 
+#mockup {
+  width: 302px;
+  height: 446px;
+  -webkit-mask-box-image: url('../img/virgin.png');
+  position: relative;
+}
+
+#img_up {
+  position: absolute;
+  top: 52%;
+  left:34%;
+  max-width: 150px;
+}
 
  @media (max-width: 767px) {
   .row.reorder-xs {

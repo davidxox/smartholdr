@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="SmartHoldr - Innovez vos goodies avec des porte-cartes personnalisés pour smartphone">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+      <meta property="og:image" content="img/logo.png" />
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="140">
+<meta property="og:image:height" content="112">
+    <title>Smart Holdr - Grille Tarifaire</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/creative.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+<div class="loading" id="load" style="display:none;"></div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav" style="padding:0;">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="/"><img src="img/logo.png" style="width:168px;height:92px;" /></a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">Concept</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#services">Avantages</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#portfolio">Références</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/aboutus">A propos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/grille">Tarifs</a>
+            </li>            
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section style="margin-top:100px;">
+        <div class="container text-center">
+            <h2>Commander</h2>
+            <hr>
+          </div>
+
+      <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6" style="padding-left:10%;">
+              <div id="mockup" style="background-color:#000;">
+                <img id="img_up" src="img/drip.png" />
+              </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-6">
+             
+              
+              <select class="form-control" id="color">
+                <option>Choississez votre couleur</option>
+                <option value="#FFFFFF">Blanc</option>
+                <option value="#F2F2F2">Gris Clair</option>
+                <option value="#000000">Noir</option>
+                <option value="#FA5858">Rouge</option>
+              </select>
+              <br />
+              <input type="text" class="form-control" id="quantity" placeholder="Quantité"  />
+              <br />
+              <label class="custom-file">
+                  <input type="file" id="file" class="custom-file-input">
+                  <span class="custom-file-control"></span>
+                </label>
+
+            </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+
+<footer class="bg-primary">
+  <div class="container">
+
+      <div class="row">
+          <div class="col-lg-3 text-center">
+              <ul style="list-style: none;margin:0;padding:0px;font-size:12px;">
+                  <li><a href="mailto:contact@smartholdr.fr" style="color:#FFF;">contact@smartholdr.fr</a></li>
+                  <li>47, rue du Four</li>
+                  <li>75006 Paris</li>
+                </ul>            
+              <img src="img/logo.png" />
+          </div>
+          <div class="col-lg-9 text-center">
+              <a href="/cgv" style="color:#FFF;"><u>Conditions générales de vente</u></a>
+                        </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.js"></script>
+    <script>
+      $('#color').change(function() {
+        console.log($(this).val());
+        $('#mockup').css('background-color', $(this).val());
+      })
+    </script>
+  </body>
+
+</html>
