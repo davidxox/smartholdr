@@ -2,7 +2,7 @@ var express = require('express');
 var guestController = require('./controllers/guestController.js');
 const bodyParser = require('body-parser');
 var app = express();
-/*
+
 app.enable('trust proxy');
 app.use (function (req, res, next) {
         if (req.secure) {
@@ -12,7 +12,7 @@ app.use (function (req, res, next) {
                 // request was via http, so redirect to https
                 res.redirect('https://' + req.headers.host + req.url);
         }
-});*/
+});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -28,7 +28,6 @@ app.get('/commander', function(req, res) { res.render("commander.ejs"); });
 app.get('/contactus', guestController.sendEmail);
 app.put('/upload', guestController.uploadImage);
 
-console.log(app);
 app.listen(8080);
 
 
