@@ -89,14 +89,11 @@
             </div>
             <div class="col-xs-12 col-sm-4 col-md-6">
              
-              
-              <select class="form-control" id="color">
-                <option>Choississez votre couleur</option>
-                <option value="#FFFFFF">Blanc</option>
-                <option value="#F2F2F2">Gris Clair</option>
-                <option value="#000000">Noir</option>
-                <option value="#FA5858">Rouge</option>
-              </select>
+              <button style="padding:7px 16px;width:100%" class="jscolor {valueElement:'chosen-value'}">
+                Choisissez votre couleur
+              </button>
+              <input id="chosen-value" value="F2F2F2" type="hidden">
+<br />
               <br />
               <input type="text" class="form-control" id="quantity" placeholder="Quantité"  />
               <br />
@@ -114,6 +111,7 @@
 
                 
             </div>
+            <p id="successimg" style="color:#5cb85c;"></p>
         </div>
 
       </div>
@@ -154,30 +152,36 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/creative.js"></script>
+    <script src="js/jscolor.min.js"></script>
     <script>
-      $('#color').change(function() {
+      $('#chosen-value').on("change keyup paste", function(){
         console.log($(this).val());
-        $('#mockup').css('background-color', $(this).val());
+        $('#mockup').css('background-color', '#'+$(this).val());
       })
     </script>
     <script>
 
       $('#sendimg').click(function() {
-          $('#load').show();
+          
 var form = new FormData();
  var imgvetopre = $('#image_pro').get(0).files;
   var imgveto = imgvetopre[0]; 
 form.append("imgveto", imgveto);
 var ok = true;
+if(imgveto) {
 if (imgveto.size > 2 * 1048576) {  
     ok = false;
     alert('La taille de l\'image est supérieur à 2mo');
     $('#load_up_img').hide();
 }
-if(!imgveto)  { $('#image_pro').css('border', '1px solid #FA5858'); $('#load_up_img').hide(); ok = false; }
+}
+if(!imgveto)  { 
+  $('#image_pro').css('border', '1px solid #FA5858'); 
+alert('Veuillez sélectionner une image '); 
+ok = false; }
 
 if(ok) {
-
+  $('#load').show();
 var settings = {
   "async": true,
   "crossDomain": true,
@@ -195,6 +199,7 @@ var settings = {
 $.ajax(settings).done(function (response) {
   $('#load').hide();
   $('#img_up').attr('src', response);
+  $('#successimg').html('Votre image a correctement été chargé !')
 
 })
 }
