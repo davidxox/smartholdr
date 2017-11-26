@@ -26,6 +26,7 @@
     <!-- Custom styles for this template -->
     <link href="css/creative.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110091754-1"></script>
 <script>
@@ -35,6 +36,7 @@
 
   gtag('config', 'UA-110091754-1');
 </script>
+
 
   </head>
 
@@ -88,15 +90,16 @@
 
             </div>
             <div class="col-xs-12 col-sm-4 col-md-6">
-             
+             <div id="step1">
               <button style="padding:7px 16px;width:100%" class="jscolor {valueElement:'chosen-value'}">
                 Choisissez votre couleur
               </button>
-              <input id="chosen-value" value="F2F2F2" type="hidden">
+              <input id="chosen-value" value="F2F2F2" type="text" class="form-control" />
 <br />
-              <br />                
+              <br />  
+              Quantité               
                   <div class="range-slider">
-                    <input class="range-slider__range" id="rangebudget" type="range" value="0" min="0" max="10000" oninput="outputUpdateBudget(value)" step="500">
+                    <input class="range-slider__range" id="rangebudget" type="range" value="0" min="0" max="10000" oninput="outputUpdateBudget(value)" step="200">
                     <output for="rangebudget" id="volumebudget" style="left: 28%;">0 pièce</output>
                   </div>
 <br /><br />
@@ -113,11 +116,26 @@
                 
               </div>
 
-                
+              
             </div>
             <p id="successimg" style="color:#5cb85c;"></p>
-        </div>
 
+            <b>Prix :</b> <span id="price">0</span> € (HT) <small>soit <span id="ttcprice">0</span>€ (TTC)</small>
+              <input type="hidden" id="totalprice" />
+              <br />
+              <div style="text-align:center">
+              <button class="btn btn-primary btn-xl js-scroll-trigger" id="gostep2" style="padding:7px 16px;">Paiement</button>
+              </div>  
+          </div>  
+          <div id="step2" style="display:none;">
+            
+            <h4>Paiement</h4>
+            <div id="card-element">
+                <!-- a Stripe Element will be inserted here. -->
+              </div>
+
+          </div>   
+        </div>
       </div>
     </section>
 
@@ -158,29 +176,101 @@
     <script src="js/creative.js"></script>
     <script src="js/jscolor.min.js"></script>
     <script>
+      $(document).ready(function() {
+         var output = document.querySelector("#volumebudget");
+        output.style.left =0;
+        
+          function outputUpdateBudget(vol) {
+            if (vol == 0) {
+              var output = document.querySelector("#volumebudget");
+              $('#volumebudget').html('0 pièce');
+              output.style.left = '';
+            } else {
+              var output = document.querySelector("#volumebudget");
+              output.value = vol;
+              output.style.left = (vol * (1 / 100)) + '%';
+        
+              $('#volumebudget').append(' pièces')
+            }
+          
+          }       
+      })
+          </script>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+var stripe = Stripe('pk_test_DV4oPBC9jr8IQEzcLV4IxoOE');
+      
+      // Create an instance of Elements
+      var elements = stripe.elements();
+      
+      // Custom styling can be passed to options when creating an Element.
+      // (Note that this demo uses a wider set of styles than the guide below.)
+      var style = {
+        base: {
+          color: '#32325d',
+          lineHeight: '18px',
+          fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+          fontSmoothing: 'antialiased',
+          fontSize: '16px',
+          '::placeholder': {
+            color: '#aab7c4'
+          }
+        },
+        invalid: {
+          color: '#fa755a',
+          iconColor: '#fa755a'
+        }
+      };
+      
+      // Create an instance of the card Element
+      var card = elements.create('card', {style: style});
+      
+      // Add an instance of the card Element into the `card-element` <div>
+      card.mount('#card-element');
+      var error_show = false;
+      // Handle real-time validation errors from the card Element.
+      card.addEventListener('change', function(event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+          displayError.textContent = event.error.message;
+          error_show = true;
+        } else {
+          displayError.textContent = '';
+        }
+      });    
+    
+    </script>
+    <script>
       $('#chosen-value').on("change keyup paste", function(){
-        console.log($(this).val());
         $('#mockup').css('background-color', '#'+$(this).val());
       })
-    </script>
-<script>
-  var output = document.querySelector("#volumebudget");
-  output.style.left =0;
-  
-    function outputUpdateBudget(vol) {
-      if (vol == 0) {
-        var output = document.querySelector("#volumebudget");
-        $('#volumebudget').html('0 pièce');
-        output.style.left = '';
-      } else {
-        var output = document.querySelector("#volumebudget");
-        output.value = vol;
-        output.style.left = (vol * (1 / 100)) + '%';
-  
-        $('#volumebudget').append(' pièces')
+      $('#gostep2').click(function() {
+        if($('#totalprice').val() != 0) {
+          $('#step1').hide();
+          $('#step2').show("slow");
+        } else {
+          alert("Vous devez entrer une quantité !");
+        }
+      })
+
+      $(document).on('input change', '#rangebudget', function() {
+            $('#price').html(computeTheAmount($(this).val()));
+            var totalPrice = Math.round(computeTheAmount($(this).val())*(1+21/100));
+            $('#ttcprice').html(totalPrice);
+            $('#totalprice').val(totalPrice);
+    });
+
+      function computeTheAmount(quantity) {
+        var fix_price = {"q1" : 0.90, "q2" : 0.80, "q3" : 0.70, "q4" : 0.60  };
+        var bat = 30/(1+21/100);
+        if(quantity < 1000 && quantity > 0) return Math.round(quantity*fix_price.q1+bat);
+        if(quantity >= 1000 && quantity < 2000) return Math.round(quantity*fix_price.q2+bat);
+        if(quantity >= 2000 && quantity < 5000) return Math.round(quantity*fix_price.q3+bat);
+        if(quantity >= 5000 && quantity <= 10000) return Math.round(quantity*fix_price.q4+bat);
+        return 0;
       }
-    
-    }
+
     </script>
     <script>
 
@@ -222,7 +312,10 @@ var settings = {
 $.ajax(settings).done(function (response) {
   $('#load').hide();
   $('#img_up').attr('src', response);
-  $('#successimg').html('Votre image a correctement été chargé !')
+  $('#successimg').html('Votre image a correctement été chargé !');
+  /*
+  $('#img_up').css('top', '');
+  $('#img_up').css('left', '');*/
 
 })
 }
