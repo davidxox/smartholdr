@@ -1,7 +1,8 @@
 var express = require('express');
-var mailController = require('./controllers/mailController.js');
+var guestController = require('./controllers/guestController.js');
+const bodyParser = require('body-parser');
 var app = express();
-
+/*
 app.enable('trust proxy');
 app.use (function (req, res, next) {
         if (req.secure) {
@@ -11,11 +12,10 @@ app.use (function (req, res, next) {
                 // request was via http, so redirect to https
                 res.redirect('https://' + req.headers.host + req.url);
         }
-});
-var bodyParser = require('body-parser');
+});*/
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
 app.use('/', express.static(__dirname + "/site/"));
 app.set('views', __dirname + '/site');
 app.engine('html', require('ejs').renderFile);
@@ -25,8 +25,10 @@ app.get('/grille', function(req, res) { res.render("grille.ejs"); });
 app.get('/cgv', function(req, res) { res.render("cgv.ejs"); });
 app.get('/aboutus', function(req, res) { res.render("about.ejs"); });
 app.get('/commander', function(req, res) { res.render("commander.ejs"); });
-app.get('/contactus', mailController.sendEmail);
+app.get('/contactus', guestController.sendEmail);
+app.put('/upload', guestController.uploadImage);
 
+console.log(app);
 app.listen(8080);
 
 
