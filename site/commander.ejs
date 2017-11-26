@@ -94,8 +94,12 @@
               </button>
               <input id="chosen-value" value="F2F2F2" type="hidden">
 <br />
-              <br />
-              <input type="text" class="form-control" id="quantity" placeholder="Quantité"  />
+              <br />                
+                  <div class="range-slider">
+                    <input class="range-slider__range" id="rangebudget" type="range" value="0" min="0" max="10000" oninput="outputUpdateBudget(value)" step="500">
+                    <output for="rangebudget" id="volumebudget" style="left: 28%;">0 pièce</output>
+                  </div>
+<br /><br />
               <br />
               <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -158,6 +162,25 @@
         console.log($(this).val());
         $('#mockup').css('background-color', '#'+$(this).val());
       })
+    </script>
+<script>
+  var output = document.querySelector("#volumebudget");
+  output.style.left =0;
+  
+    function outputUpdateBudget(vol) {
+      if (vol == 0) {
+        var output = document.querySelector("#volumebudget");
+        $('#volumebudget').html('0 pièce');
+        output.style.left = '';
+      } else {
+        var output = document.querySelector("#volumebudget");
+        output.value = vol;
+        output.style.left = (vol * (1 / 100)) + '%';
+  
+        $('#volumebudget').append(' pièces')
+      }
+    
+    }
     </script>
     <script>
 
