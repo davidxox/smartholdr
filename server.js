@@ -27,6 +27,8 @@ app.get('/aboutus', function(req, res) { res.render("about.ejs"); });
 app.get('/commander', function(req, res) { res.render("commander.ejs"); });
 app.get('/contactus', guestController.sendEmail);
 app.put('/upload', guestController.uploadImage);
+app.post('/test', guestController.testReq);
+app.post('/pay', guestController.chargeClient);
 
 app.listen(8080);
 
