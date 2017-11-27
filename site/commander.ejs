@@ -274,10 +274,8 @@
         base_regular+=3.30
         base_express+=9;
       }
-      //shipping.express = base_express;
-      //shipping.regular = base_regular;
-      shipping.express = 0;
-      shipping.regular = 0;      
+      shipping.express = base_express;
+      shipping.regular = base_regular;     
       return shipping;
     }
     var stripe = Stripe('pk_live_PRKcXuDWb5fGhxhMemN5LzV8');
@@ -393,23 +391,23 @@
       })
 
       $('#gostep2').click(function() {
-        //if($('#totalprice').val() != 0) {
+        if($('#totalprice').val() != 0) {
           $('#step1').hide();
           $('#step3').hide();
           $('#step2').show("slow");
-        //} else {
-        //  alert("Vous devez entrer une quantité supérieure à 100 !");
-        ///}
+        } else {
+          alert("Vous devez entrer une quantité supérieure à 100 !");
+        }
       })
 
       $('#gostep3').click(function() {
-        //if($('#totalprice').val() != 0 && $('#email').val() && $('#phone').val()) {
+        if($('#totalprice').val() != 0 && $('#email').val() && $('#phone').val()) {
           $('#step1').hide();
           $('#step2').hide();
           $('#step3').show("slow");
-       // } else {
-         // alert("Les champs sont vides");
-        //}
+        } else {
+          alert("Les champs sont vides");
+        }
       })     
 
 
@@ -443,9 +441,8 @@
 
       function computeTheAmount(quantity) {
         var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 1.25, "q5" : 1.10, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
-       // var bat = 30; //
-       var bat = 0; 
-       if(quantity < 100) return Math.round(quantity*0.2);
+       var bat = 30; 
+       if(quantity < 100) return Math.round(quantity*3.50);
         if(quantity >= 100 && quantity < 150) return Math.round(quantity*fix_price.q1+bat);
         if(quantity >= 150 && quantity < 200) return Math.round(quantity*fix_price.q2+bat);
         if(quantity >= 200 && quantity < 300) return Math.round(quantity*fix_price.q3+bat);
@@ -455,7 +452,7 @@
         if(quantity >= 1000 && quantity < 2500) return Math.round(quantity*fix_price.q7+bat);
         if(quantity >= 2500 && quantity < 5000) return Math.round(quantity*fix_price.q8+bat);
         if(quantity >= 5000) return Math.round(quantity*fix_price.q9+bat);
-        return 4;
+        return 0;
       }
 
     </script>

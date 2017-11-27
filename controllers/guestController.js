@@ -125,8 +125,9 @@ function chargeClient(req, res) {
           '<img src="https://smartholdr.fr/img/logo.png" /></div><br />'+
           'Bonjour,<br />'+
           'Votre commande pour un montant de '+amount_correct+' € TTC est confirmé.<br />'+
-          'Nous restons à votre disponibilité.<br /> '+
-          'L\'équipe Smart Holdr ';
+          'Veuillez nous envoyer un fichier de votre logo vectorisé (au format .ai) par e-mail.<br /> '+
+          'Vous recevrez prochainement une facture pro forma sur votre boite e-mail.'+
+          'L\'équipe Smart Holdr <br /> -- <br />Société AC Collection <br />Numéro de téléphone : <a href=tel:+33671026483">06 71 02 64 83</a>';
 
           var mail = {
             from: "SmartHoldr <contact@smartholdr.fr>", 
