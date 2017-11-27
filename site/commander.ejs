@@ -110,14 +110,17 @@
               </div>
                 </label>
 <br />
-              <small>Toujours tout</small> <b>sous la main !</b><br />
-                <small>Porte-cartes en silicone à fixer sur votre Smartphone en utilisant le ruban fourni. Parfait pour les cartes de visite, cartes de crédit, permis de conduire, carte d'identité ou même de l'argent. <br /> 
+              Toujours tout <strong>sous la main !</strong><br />
+                Porte-cartes en silicone à fixer sur votre Smartphone en utilisant le ruban fourni. Parfait pour les cartes de visite, cartes de crédit, permis de conduire, carte d'identité ou même de l'argent. <br /> 
                 Dimensions : 8,5 x 5,6 x 0,3 cm<br />
-                Poids : 13g</small>
+                Poids : 13g <br />
+                Livraison 7 à 15 jours.<br />
+                <i><small>Cette image est à titre indificatif, notre équipe s'occupera de la recadrer. </small></i>
 
             </div>
             <div class="col-xs-12 col-sm-4 col-md-6">
                 <h4 id="step1_title">Votre Smart Holdr</h4>
+                <hr style="margin-left:5px;">
              <div id="step1">
               <button style="padding:7px 16px;width:100%" class="jscolor {valueElement:'chosen-value'}">
                 Choisissez votre couleur
@@ -126,7 +129,7 @@
 <br />
               Quantité  
                
-                    <input class="form-control" id="rangebudget" type="number" min="100" max="10000" />
+                    <input class="form-control" id="rangebudget" type="number" min="0" max="10000" />
                     <small class="form-text text-muted">A partir de 100 SmartHoldr</small>
               <br />
                     <label class="custom-file">
@@ -137,7 +140,7 @@
               
             <p id="successimg" style="color:#5cb85c;"></p>
 
-            <b>Prix :</b> <span id="price">0</span> € (HT) <small>soit <span id="ttcprice">0</span>€ (TTC) (livraison comprise 7 à 15 jours)</small>
+            <h4><b>Prix :</b> <span id="price">0</span> € (HT) <small>soit <span id="ttcprice">0</span>€ (TTC) (livraison comprise 7 à 15 jours)</small></h4>
               <input type="hidden" id="totalprice" />
               <br />
               <div style="text-align:center">
@@ -146,7 +149,8 @@
           </div>
           
           <br />
-          <h4 id="step2_title">Livraison</h4>
+          <h4 id="step2_title" style="margin-left:5px;">Livraison</h4>
+          <hr style="margin-left:5px;">
           <div id="step2" style="display:none;">
               <div class="form-row">
                   <div class="col-xs-6 col-sm-6 col-md-6">
@@ -199,7 +203,9 @@
                     </div>  
 
           </div>
-          <h4 id="step3_title">Paiement</h4>
+          <br />
+          <h4 id="step3_title" style="margin-left:5px;">Paiement</h4>
+          <hr style="margin-left:5px;">
           <div id="step3" style="display:none;">
             
             <div id="card-element">
@@ -268,8 +274,10 @@
         base_regular+=3.30
         base_express+=9;
       }
-      shipping.express = base_express;
-      shipping.regular = base_regular;
+      //shipping.express = base_express;
+      //shipping.regular = base_regular;
+      shipping.express = 0;
+      shipping.regular = 0;      
       return shipping;
     }
     var stripe = Stripe('pk_live_PRKcXuDWb5fGhxhMemN5LzV8');
@@ -435,7 +443,9 @@
 
       function computeTheAmount(quantity) {
         var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 1.25, "q5" : 1.10, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
-        var bat = 30;
+       // var bat = 30; //
+       var bat = 0; 
+       if(quantity < 100) return Math.round(quantity*0.2);
         if(quantity >= 100 && quantity < 150) return Math.round(quantity*fix_price.q1+bat);
         if(quantity >= 150 && quantity < 200) return Math.round(quantity*fix_price.q2+bat);
         if(quantity >= 200 && quantity < 300) return Math.round(quantity*fix_price.q3+bat);
@@ -445,7 +455,7 @@
         if(quantity >= 1000 && quantity < 2500) return Math.round(quantity*fix_price.q7+bat);
         if(quantity >= 2500 && quantity < 5000) return Math.round(quantity*fix_price.q8+bat);
         if(quantity >= 5000) return Math.round(quantity*fix_price.q9+bat);
-        return 0;
+        return 4;
       }
 
     </script>
