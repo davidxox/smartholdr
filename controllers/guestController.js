@@ -21,7 +21,7 @@ var smtpTransport = mailer.createTransport(smtpTransportModule({
     api_secret: 'SiXGVYGxEhhnKZaYyMp3cThwi7U'
   });
   var fs = require('fs');
-  var stripe = require('stripe')('sk_test_EEUy69P0Chk3UpfThwP0IzWP');
+  var stripe = require('stripe')('sk_live_bcDkPD5Pizet14aPRVhM8X10');
 
 function sendEmail(req, res) {
   var email = req.query.email;
