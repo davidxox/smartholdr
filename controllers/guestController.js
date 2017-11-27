@@ -102,16 +102,37 @@ function chargeClient(req, res) {
         currency: 'eur',
         customer: customer.id
       }, function(err, charge) {
-
+        if(err) res.status(404).send({message : "Error in the Stripe API : "+err});
         if(charge.paid) { 
+          var amount_correct = req.body.amount/100;
           
+          var html_for_bib = '<div style="text-align:center;">'+
+          '<img src="https://smartholdr.fr/img/logo.png" /></div><br />'+
+          'Bonjour,<br />'+
+          'Une nouvelle commande vient d\'être réalisée pour un montant de '+amount_correct+' € TTC. <br />'+
+          'Voici les informations de la commande :<br /> '+
+          '<b>Logo de l\'entreprise</b> : '+req.body.img+' <br />'+
+          '<b>Couleur choisie</b> : '+req.body.color + '<br />'+
+          '<b>Quantité</b>: '+req.body.quantity + '<br />'+
+          '<b>E-mail </b>: '+req.body.email +' <br />'+
+          '<b>Entreprise</b> : '+req.body.entreprise+' <br />'+
+          '<b>Nom du contact</b> : '+req.body.name + ' <br />'+
+          '<b>Livraison Express</b> : '+req.body.express + ' <br />'+
+          '<b>Adresse</b> : '+req.body.adress + ' '+req.body.city + ' '+req.body.zipcode + ' France <br />'+
+          'Cordialement';
 
+          var html_cust= '<div style="text-align:center;">'+
+          '<img src="https://smartholdr.fr/img/logo.png" /></div><br />'+
+          'Bonjour,<br />'+
+          'Votre commande pour un montant de '+amount_correct+' € TTC est confirmé.<br />'+
+          'Nous restons à votre disponibilité.<br /> '+
+          'L\'équipe Smart Holdr ';
 
           var mail = {
-            from: "contact@smartholdr.fr", 
+            from: "SmartHoldr <contact@smartholdr.fr>", 
              to: 'david.xox@gmail.com, adrian.zerbib@etu-webschoolfactory.fr',
              subject: "Une nouvelle commande a été prise",
-             html: "Bonjour, <br /> Une nouvelle commande vient d'être prise, voici les détails"
+             html: html_for_bib
          }; 
              smtpTransport.sendMail(mail, function(error, response){
              if(error){
@@ -121,13 +142,13 @@ function chargeClient(req, res) {
              }
              smtpTransport.close();
             })
-            var mail = {
+            var mail_cust = {
               from: "SmartHoldr <contact@smartholdr.fr>", 
-               to: mail,
+               to: req.body.email,
                subject: "Votre commande est confirmé",
-               html: "Bonjour, <br /> Merci d'avoir commandé chez Smart Holdr. <br />Votre commande est confirmé, vous serez tenu informé de son avancé.<br /><br />L'équipe Smart Holdr"
+               html: html_cust
            }; 
-               smtpTransport.sendMail(mail, function(error, response){
+               smtpTransport.sendMail(mail_cust, function(error, response){
                if(error){
                   console.log(error);
                } else {

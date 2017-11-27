@@ -97,57 +97,53 @@
             <h2>Commander</h2>
             <hr>
           </div>
-
-      <div class="container">
+<input type="hidden" id="path_img" />
+      <div class="container" style="background-color:#F2F2F2;" id="contains">
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-md-6" style="padding-left:10%;">
-              <div id="mockup" style="background-color:#F2F2F2;">
+                <label for="image_pro">
+                <div id="mockup" style="background-color:#FFFF;">
                 <img id="img_up" src="img/sample_logo.png" />
               </div>
+                </label>
+<br />
               <small><i>Cette image est à tire indicatif, notre équipe s'occupera de la version finale</i></small>
 
             </div>
             <div class="col-xs-12 col-sm-4 col-md-6">
-                <h4>Votre Smart Holdr</h4>
+                <h4 id="step1_title">Votre Smart Holdr</h4>
                 <hr>
              <div id="step1">
               <button style="padding:7px 16px;width:100%" class="jscolor {valueElement:'chosen-value'}">
                 Choisissez votre couleur
               </button>
-              <input id="chosen-value" value="F2F2F2" type="text" class="form-control" />
+              <input id="chosen-value" value="FFFFFF" type="text" class="form-control" />
 <br />
               Quantité  
                
-                    <input class="form-control" id="rangebudget" type="number" />
+                    <input class="form-control" id="rangebudget" type="number" min="100" max="10000" />
+                    <small class="form-text text-muted">A partir de 100 SmartHoldr</small>
               <br />
-              <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
                     <label class="custom-file">
                         <input class="custom-file-input" type="file" id="image_pro" name="image_pro" enctype="multipart/form-data" accept="image/*">
                         <span class="custom-file-control"></span>
                       </label>
-              </div>
-              <div class="col-xs-6 col-sm-6 col-md-6">
-                  <button class="btn btn-primary btn-xl js-scroll-trigger" id="sendimg" style="padding:7px 16px;">Charger l'image</button>                  
-                
-              </div>
 
               
-            </div>
             <p id="successimg" style="color:#5cb85c;"></p>
 
             <b>Prix :</b> <span id="price">0</span> € (HT) <small>soit <span id="ttcprice">0</span>€ (TTC)</small>
               <input type="hidden" id="totalprice" />
               <br />
               <div style="text-align:center">
-              <button class="btn btn-primary btn-xl js-scroll-trigger" id="gostep2" style="padding:7px 16px;">Etape suivante</button>
+              <button class="btn btn-primary btn-xl js-scroll-trigger" id="gostep2" style="padding:7px 16px;background-color:#5cb85c">Etape suivante</button>
               </div>  
           </div>
           
           <br />
-          <h4>Livraison</h4>
+          <h4 id="step2_title">Livraison</h4>
           <hr>
-          <div id="step2" style="display:;">
+          <div id="step2" style="display:none;">
               <div class="form-row">
                   <div class="col-xs-6 col-sm-6 col-md-6">
                     <input type="text" class="form-control" placeholder="Votre entreprise" id="entreprise">
@@ -171,9 +167,11 @@
                         <input type="text" class="form-control" placeholder="France" disabled id="country">
                       </div>
                       <div class="col-xs-6 col-sm-6 col-md-6">
-                          <input type="text" class="form-control" placeholder="Adresse E-mail" id="email">
-                      </div>
+                        <input type="text" class="form-control" placeholder="Ville" id="city">
+                      </div>                      
                     </div>
+                    <br />
+                    <input type="text" class="form-control" placeholder="Adresse E-mail" id="email">
                     <br />
                     <div class="form-row">
                       <div class="col-xs-6 col-sm-6 col-md-6">
@@ -191,16 +189,26 @@
 
                     Prix (TTC) : <span id="finalprice"></span>
                     <input type="hidden" value="" id="pricetopay" />
+                    <br />
+                    <div style="text-align:center">
+                    <button class="btn btn-primary btn-xl js-scroll-trigger" id="gostep3" style="padding:7px 16px;background-color:#5cb85c">Etape suivante</button>
+                    </div>  
+
           </div>
-          <h4>Paiement</h4>
+          <h4 id="step3_title">Paiement</h4>
           <hr>
-          <div id="step3" style="display:;">
+          <div id="step3" style="display:none;">
             
             <div id="card-element">
                 <!-- a Stripe Element will be inserted here. -->
               </div>
               <div id="card-errors" role="alert"></div>
               <br />
+              <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" id="acceptcgv"> J'accepte les <a href="/cgv">conditions générales de ventes</a>
+                  
+                </label>
+
               <div style="text-align:center;">
               <button class="btn btn-primary btn-xl js-scroll-trigger" id="sendstripe" style="padding:7px 16px;">Payer</button>
               </div>
@@ -248,8 +256,20 @@
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-      var shipping = {"express" : 50, "regular" : 30};
-var stripe = Stripe('pk_test_DV4oPBC9jr8IQEzcLV4IxoOE');
+
+    function computeShipping(quantity) {
+      var base_regular = 20;
+      var base_express = 70;
+      var shipping = {};
+      for (var i = 0; i < quantity; i+=500) {
+        base_regular+=3.30
+        base_express+=9;
+      }
+      shipping.express = base_express;
+      shipping.regular = base_regular;
+      return shipping;
+    }
+    var stripe = Stripe('pk_test_DV4oPBC9jr8IQEzcLV4IxoOE');
       
       // Create an instance of Elements
       var elements = stripe.elements();
@@ -291,14 +311,16 @@ var stripe = Stripe('pk_test_DV4oPBC9jr8IQEzcLV4IxoOE');
       });    
     
       $('#sendstripe').click(function() {
-        stripe.createToken(card).then(function(result) {
+        if($('#acceptcgv').prop( "checked" )) {
+          $('#load').show();
+          var express_final = "Non";
+          if($('#shipexpress').prop( "checked" )) express_final = "Oui";
+          stripe.createToken(card).then(function(result) {
           if (result.error) {
             // Inform the user if there was an error
             var errorElement = document.getElementById('card-errors');
             errorElement.textContent = result.error.message;
           } else {
-            console.log(result.token);
-              $('#load').show();
               var settings = { 
               "async": true, 
               "crossDomain": true, 
@@ -306,14 +328,18 @@ var stripe = Stripe('pk_test_DV4oPBC9jr8IQEzcLV4IxoOE');
               "method": "POST", 
               "data" : { 
               "stripeToken" : result.token, 
+              "quantity" : $('#rangebudget').val(),
               "email" : $('#email').val(),
               "entreprise" : $('#entreprise').val(),
-              "color" : '#FFFFFF',
+              "color" : $('#chosen-value').val(),
+              "img" : $('#path_img').val(),
               "name" : $('#nom').val(),
               "zipcode" : $('#zipcode').val(),
               "phone" : $('#phone').val(),
+              "city" : $('#city').val(),
               "adress" : $('#adresse').val(),
-              "amount" : $('#pricetopay').val()*100
+              "amount" : $('#pricetopay').val()*100,
+              "express" : express_final
               },
               "headers": { "content-type": "application/x-www-form-urlencoded" }
             } 
@@ -321,28 +347,66 @@ var stripe = Stripe('pk_test_DV4oPBC9jr8IQEzcLV4IxoOE');
             .done(function (response) { 
                $('#load').hide();
                $('#success_modal').modal();
+               setTimeout("window.location='/'",4500); 
+            })
+            .fail(function(response) { 
+
+                alert("Votre moyen de paiement est refusé !");
             })         
           }
-        });        
+        }); 
+        } else {
+          alert("Vous devez accepter les conditions générales de vente");
+        }       
       })
 
     </script>
     <script>
       $('#chosen-value').on("change keyup paste", function(){
         $('#mockup').css('background-color', '#'+$(this).val());
+        var code = "#"+$(this).val();
+        if(code == '#F2F2F2') $('#contains').css('background-color', '#FFFFFF');
+        if(code == '#FFFFFF') $('#contains').css('background-color', '#F2F2F2');
       })
-      $('#gostep3').click(function() {
+
+      //  $("#connect").click();
+      $('#step1_title').click(function() {
+        $('#step2').hide();
+        $('#step3').hide();
+        $('#step1').show("slow");
+      })
+      $('#step2_title').click(function() {
+        $('#gostep2').click();
+      })
+      $('#step3_title').click(function() {
+        $('#gostep3').click();
+      })
+
+      $('#gostep2').click(function() {
         if($('#totalprice').val() != 0) {
           $('#step1').hide();
-          $('#step3').show("slow");
+          $('#step3').hide();
+          $('#step2').show("slow");
         } else {
-          alert("Vous devez entrer une quantité !");
+          alert("Vous devez entrer une quantité supérieure à 100 !");
         }
       })
+
+      $('#gostep3').click(function() {
+        if($('#totalprice').val() != 0 && $('#email').val() && $('#phone').val()) {
+          $('#step1').hide();
+          $('#step2').hide();
+          $('#step3').show("slow");
+        } else {
+          alert("Les champs sont vides");
+        }
+      })     
+
 
       $(document).on('input change', '#rangebudget', function() {
             $('#price').html(computeTheAmount($(this).val()));
             var totalPrice = Math.round(computeTheAmount($(this).val())*(1+21/100));
+            var shipping = computeShipping($(this).val());
             $('#ttcprice').html(totalPrice);
             $('#finalprice').html((totalPrice + shipping.regular) + "€");
             $('#pricetopay').val(totalPrice + shipping.regular);
@@ -353,6 +417,7 @@ var stripe = Stripe('pk_test_DV4oPBC9jr8IQEzcLV4IxoOE');
     $( "#shipexpress" ).change(function() {
 
       var totalPrice = Math.round(computeTheAmount($('#rangebudget').val())*(1+21/100));
+      var shipping = computeShipping($('#rangebudget').val());
     if($(this).prop( "checked" )) {
       $('#finalprice').html((totalPrice + shipping.express) + "€"); 
       $('#pricetopay').val(totalPrice + shipping.express);
@@ -367,19 +432,24 @@ var stripe = Stripe('pk_test_DV4oPBC9jr8IQEzcLV4IxoOE');
     })
 
       function computeTheAmount(quantity) {
-        var fix_price = {"q1" : 0.90, "q2" : 0.80, "q3" : 0.70, "q4" : 0.60  };
-        var bat = 30/(1+21/100);
-        if(quantity < 1000 && quantity > 0) return Math.round(quantity*fix_price.q1+bat);
-        if(quantity >= 1000 && quantity < 2000) return Math.round(quantity*fix_price.q2+bat);
-        if(quantity >= 2000 && quantity < 5000) return Math.round(quantity*fix_price.q3+bat);
-        if(quantity >= 5000) return Math.round(quantity*fix_price.q4+bat);
+        var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 1.25, "q5" : 1.10, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
+        var bat = 30;
+        if(quantity >= 100 && quantity < 150) return Math.round(quantity*fix_price.q1+bat);
+        if(quantity >= 150 && quantity < 200) return Math.round(quantity*fix_price.q2+bat);
+        if(quantity >= 200 && quantity < 300) return Math.round(quantity*fix_price.q3+bat);
+        if(quantity >= 300 && quantity < 400) return Math.round(quantity*fix_price.q4+bat);
+        if(quantity >= 400 && quantity < 500) return Math.round(quantity*fix_price.q5+bat);
+        if(quantity >= 500 && quantity < 1000) return Math.round(quantity*fix_price.q6+bat);
+        if(quantity >= 1000 && quantity < 2500) return Math.round(quantity*fix_price.q7+bat);
+        if(quantity >= 2500 && quantity < 5000) return Math.round(quantity*fix_price.q8+bat);
+        if(quantity >= 5000) return Math.round(quantity*fix_price.q9+bat);
         return 0;
       }
 
     </script>
     <script>
 
-      $('#sendimg').click(function() {
+$('#image_pro').change(function () {
           
 var form = new FormData();
  var imgvetopre = $('#image_pro').get(0).files;
@@ -419,9 +489,7 @@ $.ajax(settings).done(function (response) {
   $('#load').hide();
   $('#img_up').attr('src', json.path);
   $('#successimg').html('Votre image a correctement été chargé !');
-  /*
-  $('#img_up').css('top', '');
-  $('#img_up').css('left', '');*/
+  $('#path_img').val(json.path);
 
 })
 }
