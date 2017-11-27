@@ -129,7 +129,7 @@
 <br />
               Quantité  
                
-                    <input class="form-control" id="rangebudget" type="number" min="0" max="10000" />
+                    <input class="form-control" id="rangebudget" type="number" min="100" max="10000" />
                     <small class="form-text text-muted">A partir de 100 SmartHoldr</small>
               <br />
                     <label class="custom-file">
@@ -442,7 +442,6 @@
       function computeTheAmount(quantity) {
         var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 1.25, "q5" : 1.10, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
        var bat = 30; 
-       if(quantity < 100) return Math.round(quantity*3.50);
         if(quantity >= 100 && quantity < 150) return Math.round(quantity*fix_price.q1+bat);
         if(quantity >= 150 && quantity < 200) return Math.round(quantity*fix_price.q2+bat);
         if(quantity >= 200 && quantity < 300) return Math.round(quantity*fix_price.q3+bat);
