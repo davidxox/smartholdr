@@ -95,13 +95,13 @@
       </div>
     </div>
 
-    <section style="margin-top:100px;">
+    <section style="margin-top:100px;background-color:#F9F9F9;"  id="contains">
         <div class="container text-center">
-            <h2>Commander</h2>
+            <h2>Commandez en ligne</h2>
             <hr>
           </div>
 <input type="hidden" id="path_img" />
-      <div class="container" style="background-color:#F2F2F2;" id="contains">
+      <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-md-6" style="padding-left:10%;">
                 <label for="image_pro">
@@ -110,12 +110,14 @@
               </div>
                 </label>
 <br />
-              <small><i>Cette image est à tire indicatif, notre équipe s'occupera de la version finale</i></small>
+              <small>Toujours tout</small> <b>sous la main !</b><br />
+                <small>Porte-cartes en silicone à fixer sur votre Smartphone en utilisant le ruban fourni. Parfait pour les cartes de visite, cartes de crédit, permis de conduire, carte d'identité ou même de l'argent. <br /> 
+                Dimensions : 8,5 x 5,6 x 0,3 cm<br />
+                Poids : 13g</small>
 
             </div>
             <div class="col-xs-12 col-sm-4 col-md-6">
                 <h4 id="step1_title">Votre Smart Holdr</h4>
-                <hr>
              <div id="step1">
               <button style="padding:7px 16px;width:100%" class="jscolor {valueElement:'chosen-value'}">
                 Choisissez votre couleur
@@ -135,7 +137,7 @@
               
             <p id="successimg" style="color:#5cb85c;"></p>
 
-            <b>Prix :</b> <span id="price">0</span> € (HT) <small>soit <span id="ttcprice">0</span>€ (TTC)</small>
+            <b>Prix :</b> <span id="price">0</span> € (HT) <small>soit <span id="ttcprice">0</span>€ (TTC) (livraison comprise 7 à 15 jours)</small>
               <input type="hidden" id="totalprice" />
               <br />
               <div style="text-align:center">
@@ -145,7 +147,6 @@
           
           <br />
           <h4 id="step2_title">Livraison</h4>
-          <hr>
           <div id="step2" style="display:none;">
               <div class="form-row">
                   <div class="col-xs-6 col-sm-6 col-md-6">
@@ -183,7 +184,7 @@
                       <div class="col-xs-6 col-sm-6 col-md-6">
                         <label class="form-check-label">
                           <input class="form-check-input" type="checkbox" id="shipexpress"> Livraison Express     
-                          <small class="form-text text-muted">Livraison entre 5 et 7 jours</small>
+                          <small class="form-text text-muted">Livraison en 7 jours</small>
                           
                         </label>
                       </div>
@@ -199,7 +200,6 @@
 
           </div>
           <h4 id="step3_title">Paiement</h4>
-          <hr>
           <div id="step3" style="display:none;">
             
             <div id="card-element">
@@ -368,11 +368,10 @@
       $('#chosen-value').on("change keyup paste", function(){
         $('#mockup').css('background-color', '#'+$(this).val());
         var code = "#"+$(this).val();
-        if(code == '#F2F2F2') $('#contains').css('background-color', '#FFFFFF');
-        if(code == '#FFFFFF') $('#contains').css('background-color', '#F2F2F2');
+        if(code == '#F9F9F9') $('#contains').css('background-color', '#FFFFFF');
+        if(code == '#FFFFFF') $('#contains').css('background-color', '#F9F9F9');
       })
 
-      //  $("#connect").click();
       $('#step1_title').click(function() {
         $('#step2').hide();
         $('#step3').hide();
@@ -386,23 +385,23 @@
       })
 
       $('#gostep2').click(function() {
-        if($('#totalprice').val() != 0) {
+        //if($('#totalprice').val() != 0) {
           $('#step1').hide();
           $('#step3').hide();
           $('#step2').show("slow");
-        } else {
-          alert("Vous devez entrer une quantité supérieure à 100 !");
-        }
+        //} else {
+        //  alert("Vous devez entrer une quantité supérieure à 100 !");
+        ///}
       })
 
       $('#gostep3').click(function() {
-        if($('#totalprice').val() != 0 && $('#email').val() && $('#phone').val()) {
+        //if($('#totalprice').val() != 0 && $('#email').val() && $('#phone').val()) {
           $('#step1').hide();
           $('#step2').hide();
           $('#step3').show("slow");
-        } else {
-          alert("Les champs sont vides");
-        }
+       // } else {
+         // alert("Les champs sont vides");
+        //}
       })     
 
 
@@ -410,10 +409,10 @@
             $('#price').html(computeTheAmount($(this).val()));
             var totalPrice = Math.round(computeTheAmount($(this).val())*(1+21/100));
             var shipping = computeShipping($(this).val());
-            $('#ttcprice').html(totalPrice);
+            $('#ttcprice').html(totalPrice + shipping.regular);
             $('#finalprice').html((totalPrice + shipping.regular) + "€");
             $('#pricetopay').val(totalPrice + shipping.regular);
-            $('#totalprice').val(totalPrice);
+            $('#totalprice').val(totalPrice + shipping.regular);
             $('#sendstripe').html("Payer "+(totalPrice + shipping.regular) + "€");
     });
 
