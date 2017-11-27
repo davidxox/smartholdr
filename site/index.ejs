@@ -85,6 +85,28 @@
 
       </div>
     </header>
+    <div id="video_modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Le concept SmartHoldr</h4>
+          </div>
+          <div class="modal-body" style="text-align:center;">
+            <iframe width="420" height="315"
+            src="https://www.youtube.com/embed/lAoBrVCFPdk">
+            </iframe>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+          </div>
+        </div>
+    
+      </div>
+    </div>
+
     <section id="about" style="background-color:#ebebeb;">
       <div class="container">
             <div class="row">
@@ -121,13 +143,28 @@
             <br /><a href="/grille">Voir notre grille tarifaire</a>
             <br /><small>Minimum 100 pièces</small>
             </strong><br /><br />
-              <a href="/commander"><button class="btn btn-primary btn-xl js-scroll-trigger" style="padding: 35px 50px;">Commandez en ligne</button> </a> 
+              <a href="/commander"><button class="btn btn-primary btn-xl js-scroll-trigger" style="padding: 20px 50px;">Commandez en ligne</button> </a> 
           </div>
         </div>
       </div>
     </section>
 
-    <section id="services">
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h1 class="section-heading">SmartHoldr en 14 secondes</h1>
+            <hr class="primary">
+          </div>
+        </div>
+        <div style="text-align:center">
+        <img src="img/video_tease.png" style="width:60%;border-radius:30px;" id="popupvideo" />
+        </div>
+        </div>
+
+    </section>
+
+    <section id="services" style="background-color:#ebebeb;">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -170,7 +207,7 @@
       </div>
     </section>
 
-    <section id="portfolio" style="background-color:#ebebeb;">
+    <section id="portfolio">
       <div class="container text-center">
         <h2>Ils nous ont fait confiance !</h2>
         <hr>
@@ -201,7 +238,7 @@
 
 
 
-    <section id="contact" style="background-color: rgba(235, 235, 235, 0.11);">
+    <section id="contact" style="background-color:#ebebeb;">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
@@ -269,7 +306,9 @@
     <script src="js/creative.js"></script>
     <script>
 
-
+$('#popupvideo').click(function() {
+  $('#video_modal').modal();
+})
 
 
 function validateEmail(email) {
