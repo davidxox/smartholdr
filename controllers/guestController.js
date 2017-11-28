@@ -96,7 +96,7 @@ function chargeClient(req, res) {
     },
     source: req.body.stripeToken.id // obtained with Stripe.js
   }, function(err, customer) {
-      if(err) res.status(404).send({message : "Error in the Stripe API : "+err});
+      if(err || customer != null) res.status(404).send({message : "Error in the Stripe API : "+err});
       stripe.charges.create({
         amount: req.body.amount,
         currency: 'eur',
