@@ -96,14 +96,14 @@ function chargeClient(req, res) {
     },
     source: req.body.stripeToken.id // obtained with Stripe.js
   }, function(err, customer) {
-      if(err || customer != null) res.status(404).send({message : "Error in the Stripe API : "+err});
+      if(err) res.status(404).send({message : "Error in the Stripe API : "+err});
       stripe.charges.create({
         amount: req.body.amount,
         currency: 'eur',
         customer: customer.id
       }, function(err, charge) {
         if(err) res.status(404).send({message : "Error in the Stripe API : "+err});
-        if(charge != null) { 
+        if(charge.paid) { 
           var amount_correct = req.body.amount/100;
           
           var html_for_bib = '<div style="text-align:center;">'+
@@ -119,7 +119,7 @@ function chargeClient(req, res) {
           '<b>Nom du contact</b> : '+req.body.name + ' <br />'+
           '<b>Livraison Express</b> : '+req.body.express + ' <br />'+
           '<b>Adresse</b> : '+req.body.adress + ' '+req.body.city + ' '+req.body.zipcode + ' France <br />'+
-          '<b>Commentaires</b> : '+req.body.comment+' <br />'+
+          '<b>Commentaire</b> : '+req.body.comment + ' <br />'+
           'Cordialement';
 
           var html_cust= '<div style="text-align:center;">'+
