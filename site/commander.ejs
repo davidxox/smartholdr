@@ -193,8 +193,11 @@
                         </label>
                       </div>
                     </div>
-
-
+<br />
+                    <div class="form-group">
+                      <label for="comment">Commentaires</label>
+                      <textarea class="form-control" id="comment" rows="3"></textarea>
+                    </div>
                     Prix (TTC) : <span id="finalprice"></span>
                     <input type="hidden" value="" id="pricetopay" />
                     <br />
@@ -348,6 +351,7 @@
               "city" : $('#city').val(),
               "adress" : $('#adresse').val(),
               "amount" : $('#pricetopay').val()*100,
+              "comment" : $('#comment').val(),
               "express" : express_final
               },
               "headers": { "content-type": "application/x-www-form-urlencoded" }

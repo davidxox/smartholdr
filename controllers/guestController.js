@@ -119,6 +119,7 @@ function chargeClient(req, res) {
           '<b>Nom du contact</b> : '+req.body.name + ' <br />'+
           '<b>Livraison Express</b> : '+req.body.express + ' <br />'+
           '<b>Adresse</b> : '+req.body.adress + ' '+req.body.city + ' '+req.body.zipcode + ' France <br />'+
+          '<b>Commentaires</b> : '+req.body.comment+' <br />'+
           'Cordialement';
 
           var html_cust= '<div style="text-align:center;">'+
