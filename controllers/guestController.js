@@ -103,7 +103,7 @@ function chargeClient(req, res) {
         customer: customer.id
       }, function(err, charge) {
         if(err) res.status(404).send({message : "Error in the Stripe API : "+err});
-        if(charge.paid) { 
+        if(charge != null) { 
           var amount_correct = req.body.amount/100;
           
           var html_for_bib = '<div style="text-align:center;">'+
