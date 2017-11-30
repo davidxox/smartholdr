@@ -24,9 +24,10 @@ var smtpTransport = mailer.createTransport(smtpTransportModule({
   var stripe = require('stripe')('sk_live_bcDkPD5Pizet14aPRVhM8X10');
 
 function sendEmail(req, res) {
-  var email = req.query.email;
-    var content = req.query.content;
-    var name = req.query.name;
+  var email = req.body.email;
+    var content = req.body.content;
+    var name = req.body.name;
+    console.log(email, content, name);
               var mail = {
                    from: email, 
                     to: 'contact@smartholdr.fr',

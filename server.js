@@ -1,6 +1,5 @@
 var express = require('express');
 var guestController = require('./controllers/guestController.js');
-const bodyParser = require('body-parser');
 var app = express();
 
 app.enable('trust proxy');
@@ -13,7 +12,7 @@ app.use (function (req, res, next) {
                 res.redirect('https://' + req.headers.host + req.url);
         }
 });
-
+var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + "/site/"));
@@ -25,7 +24,7 @@ app.get('/grille', function(req, res) { res.render("grille.ejs"); });
 app.get('/cgv', function(req, res) { res.render("cgv.ejs"); });
 app.get('/aboutus', function(req, res) { res.render("about.ejs"); });
 app.get('/commander', function(req, res) { res.render("commander.ejs"); });
-app.get('/contactus', guestController.sendEmail);
+app.post('/contactus', guestController.sendEmail);
 app.put('/upload', guestController.uploadImage);
 app.post('/test', guestController.testReq);
 app.post('/pay', guestController.chargeClient);
