@@ -377,6 +377,7 @@ $.ajax(settings)
   $('#load').hide();
   $('#form').css('padding-left', '0px');
   $('#form').html('<span style=\"color:#5cb85c;\"><b>Votre demande a correctement été prise en compte.<br />Vous recevrez une réponse sous 12h.</b></span>');
+  setTimeout("window.location='/merci'",1500); 
  });
 }
 

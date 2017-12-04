@@ -24,6 +24,7 @@ app.get('/grille', function(req, res) { res.render("grille.ejs"); });
 app.get('/cgv', function(req, res) { res.render("cgv.ejs"); });
 app.get('/aboutus', function(req, res) { res.render("about.ejs"); });
 app.get('/commander', function(req, res) { res.render("commander.ejs"); });
+app.get('/merci', function(req, res) { res.redirect('/'); });
 app.post('/contactus', guestController.sendEmail);
 app.put('/upload', guestController.uploadImage);
 app.post('/test', guestController.testReq);
