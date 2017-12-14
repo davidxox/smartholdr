@@ -49,9 +49,21 @@
     }
       var rmt=window.setInterval(removecrisp, 500);
     </script>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KWMHVNC');</script>
+    <!-- End Google Tag Manager -->
   </head>
 
   <body id="page-top">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWMHVNC"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
 <div class="loading" id="load" style="display:none;"></div>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav" style="padding:0;">
@@ -141,7 +153,7 @@
               Quantité  
                
                     <input class="form-control" id="rangebudget" type="number" min="100" max="10000" />
-                    <small class="form-text text-muted">A partir de 100 SmartHoldr</small>
+                    <small class="form-text text-muted">A partir de 300 SmartHoldr</small>
               <br />
                     <label class="custom-file">
                         <input class="custom-file-input" type="file" id="image_pro" name="image_pro" enctype="multipart/form-data" accept="image/*">
@@ -266,6 +278,12 @@
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>    
+    <script>
+        $( function() {
+          $( "#img_up" ).draggable();
+        } );
+        </script>
     <script src="vendor/popper/popper.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
@@ -407,12 +425,12 @@
       })
 
       $('#gostep2').click(function() {
-        if($('#totalprice').val() != 0) {
+        if($('#totalprice').val() != 0 && $('#rangebudget').val() >= 300) {
           $('#step1').hide();
           $('#step3').hide();
           $('#step2').show("slow");
         } else {
-          alert("Vous devez entrer une quantité supérieure à 100 !");
+          alert("Vous devez entrer une quantité supérieure ou égale à 300 !");
         }
       })
 
