@@ -325,13 +325,9 @@ function computeShipping(quantity) {
       return shipping;
     }
 function computeTheAmount(quantity) {
-        var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 1.25, "q5" : 1.10, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
-       var bat = 30; 
-        if(quantity >= 100 && quantity < 150) return Math.round(quantity*fix_price.q1+bat);
-        if(quantity >= 150 && quantity < 200) return Math.round(quantity*fix_price.q2+bat);
-        if(quantity >= 200 && quantity < 300) return Math.round(quantity*fix_price.q3+bat);
-        if(quantity >= 300 && quantity < 400) return Math.round(quantity*fix_price.q4+bat);
-        if(quantity >= 400 && quantity < 500) return Math.round(quantity*fix_price.q5+bat);
+  var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 0.90, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
+  var bat = 30; 
+        if(quantity >= 300 && quantity < 500) return Math.round(quantity*fix_price.q5+bat);
         if(quantity >= 500 && quantity < 1000) return Math.round(quantity*fix_price.q6+bat);
         if(quantity >= 1000 && quantity < 2500) return Math.round(quantity*fix_price.q7+bat);
         if(quantity >= 2500 && quantity < 5000) return Math.round(quantity*fix_price.q8+bat);
@@ -346,7 +342,7 @@ function computeTheAmount(quantity) {
     if(color_cookie) $('#chosen-value').val(color_cookie);
     if(quantity_cookie) { $('#rangebudget').val(quantity_cookie);  
   
-            var totalPrice = Math.round(computeTheAmount(quantity_cookie)*(1+21/100));
+            var totalPrice = Math.round(computeTheAmount(quantity_cookie)*(1+20/100));
             var shipping = computeShipping(quantity_cookie);
             $('#price').html(computeTheAmount(quantity_cookie) + shipping.regular);
             $('#ttcprice').html(totalPrice + shipping.regular);
@@ -494,7 +490,7 @@ function computeTheAmount(quantity) {
 
 
       $(document).on('input change', '#rangebudget', function() {
-        var totalPrice = Math.round(computeTheAmount($(this).val())*(1+21/100));
+        var totalPrice = Math.round(computeTheAmount($(this).val())*(1+20/100));
             var shipping = computeShipping($(this).val());
             $('#price').html(computeTheAmount($(this).val()) + shipping.regular);
             $('#ttcprice').html(totalPrice + shipping.regular);
@@ -506,7 +502,7 @@ function computeTheAmount(quantity) {
 
     $( "#shipexpress" ).change(function() {
 
-      var totalPrice = Math.round(computeTheAmount($('#rangebudget').val())*(1+21/100));
+      var totalPrice = Math.round(computeTheAmount($('#rangebudget').val())*(1+20/100));
       var shipping = computeShipping($('#rangebudget').val());
     if($(this).prop( "checked" )) {
       $('#finalprice').html((totalPrice + shipping.express) + "€"); 

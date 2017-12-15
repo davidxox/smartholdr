@@ -201,8 +201,8 @@
       <div class="row">
         <div class="col-xs-12 col-sm-3 col-md-3" style="text-align:center;">
             <label for="image_pro">
-            <div id="mockup" style="background-color:#F2F2F2;width:182px;height:268px;">
-            <img id="img_up" src="img/sample_logo.png" style="border: 1px dotted #62B2EB;width:105px;height:105px;top:47%;left:22%" />
+            <div id="mockup" style="background-color:#F2F2F2;width:212px;height:313px;">
+            <img id="img_up" src="img/sample_logo_home.png" style="border: 1px dotted #62B2EB;width:150px;height:150px;top:43%;left:18%" />
           </div>
             </label>
             <label class="custom-file">
@@ -534,13 +534,9 @@ $.ajax(settings)
         </script>
         <script>
       function computeTheAmount(quantity) {
-        var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 1.25, "q5" : 1.10, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
+        var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 0.90, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
        var bat = 0; 
-        if(quantity >= 100 && quantity < 150) return Math.round(quantity*fix_price.q1+bat);
-        if(quantity >= 150 && quantity < 200) return Math.round(quantity*fix_price.q2+bat);
-        if(quantity >= 200 && quantity < 300) return Math.round(quantity*fix_price.q3+bat);
-        if(quantity >= 300 && quantity < 400) return Math.round(quantity*fix_price.q4+bat);
-        if(quantity >= 400 && quantity < 500) return Math.round(quantity*fix_price.q5+bat);
+        if(quantity >= 300 && quantity < 500) return Math.round(quantity*fix_price.q4+bat);
         if(quantity >= 500 && quantity < 1000) return Math.round(quantity*fix_price.q6+bat);
         if(quantity >= 1000 && quantity < 2500) return Math.round(quantity*fix_price.q7+bat);
         if(quantity >= 2500 && quantity < 5000) return Math.round(quantity*fix_price.q8+bat);
@@ -567,8 +563,8 @@ $.ajax(settings)
           if($(this).val() >= 300) {
             var shipping = computeShipping($(this).val());  
               var price_ht = (computeTheAmount($(this).val()));
-        var html_computation_price = 'Prix : '+price_ht+' € HT ('+Math.round((computeTheAmount($(this).val()))*(1+21/100))+' € TTC) <br />'+
-              'Coût unitaire : '+(price_ht/$(this).val()).toFixed(2)+' €/pièces<br />'+
+        var html_computation_price = 'Prix : '+price_ht+' € HT ('+Math.round((computeTheAmount($(this).val()))*(1+20/100))+' € TTC) <br />'+
+              'Coût unitaire : '+(price_ht/$(this).val()).toFixed(2)+' €/pièce<br />'+
               '<i>BAT & Livraison 7-10 jours non inclus</i>';
 
        $('#computation_price').html(html_computation_price);      
