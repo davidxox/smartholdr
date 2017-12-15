@@ -152,7 +152,7 @@
 <br />
               Quantité  
                
-                    <input class="form-control" id="rangebudget" type="number" min="100" max="10000" />
+                    <input class="form-control" id="rangebudget" type="number" min="300" max="10000" />
                     <small class="form-text text-muted">A partir de 300 SmartHoldr</small>
               <br />
                     <label class="custom-file">
@@ -298,8 +298,21 @@
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-
-    function computeShipping(quantity) {
+   function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+} 
+function computeShipping(quantity) {
       var base_regular = 20;
       var base_express = 70;
       var shipping = {};
@@ -311,6 +324,41 @@
       shipping.regular = base_regular;     
       return shipping;
     }
+function computeTheAmount(quantity) {
+        var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 1.25, "q5" : 1.10, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
+       var bat = 30; 
+        if(quantity >= 100 && quantity < 150) return Math.round(quantity*fix_price.q1+bat);
+        if(quantity >= 150 && quantity < 200) return Math.round(quantity*fix_price.q2+bat);
+        if(quantity >= 200 && quantity < 300) return Math.round(quantity*fix_price.q3+bat);
+        if(quantity >= 300 && quantity < 400) return Math.round(quantity*fix_price.q4+bat);
+        if(quantity >= 400 && quantity < 500) return Math.round(quantity*fix_price.q5+bat);
+        if(quantity >= 500 && quantity < 1000) return Math.round(quantity*fix_price.q6+bat);
+        if(quantity >= 1000 && quantity < 2500) return Math.round(quantity*fix_price.q7+bat);
+        if(quantity >= 2500 && quantity < 5000) return Math.round(quantity*fix_price.q8+bat);
+        if(quantity >= 5000) return Math.round(quantity*fix_price.q9+bat);
+        return 0;
+      }
+  var img_cookie = getCookie("img");
+    if(img_cookie) $('#img_up').attr('src', img_cookie);
+
+  var color_cookie = getCookie("color");
+  var quantity_cookie = getCookie("quantity");
+    if(color_cookie) $('#chosen-value').val(color_cookie);
+    if(quantity_cookie) { $('#rangebudget').val(quantity_cookie);  
+  
+            var totalPrice = Math.round(computeTheAmount(quantity_cookie)*(1+21/100));
+            var shipping = computeShipping(quantity_cookie);
+            $('#price').html(computeTheAmount(quantity_cookie) + shipping.regular);
+            $('#ttcprice').html(totalPrice + shipping.regular);
+            $('#finalprice').html((totalPrice + shipping.regular) + "€");
+            $('#pricetopay').val(totalPrice + shipping.regular);
+            $('#totalprice').val(totalPrice + shipping.regular);
+            $('#sendstripe').html("Payer "+(totalPrice + shipping.regular) + "€");
+            console.log(totalPrice);
+  }
+    </script>
+    <script>
+
     var stripe = Stripe('pk_live_PRKcXuDWb5fGhxhMemN5LzV8');
       
       // Create an instance of Elements
@@ -446,9 +494,9 @@
 
 
       $(document).on('input change', '#rangebudget', function() {
-            $('#price').html(computeTheAmount($(this).val()));
-            var totalPrice = Math.round(computeTheAmount($(this).val())*(1+21/100));
+        var totalPrice = Math.round(computeTheAmount($(this).val())*(1+21/100));
             var shipping = computeShipping($(this).val());
+            $('#price').html(computeTheAmount($(this).val()) + shipping.regular);
             $('#ttcprice').html(totalPrice + shipping.regular);
             $('#finalprice').html((totalPrice + shipping.regular) + "€");
             $('#pricetopay').val(totalPrice + shipping.regular);
@@ -472,21 +520,6 @@
 
 
     })
-
-      function computeTheAmount(quantity) {
-        var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 1.25, "q5" : 1.10, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
-       var bat = 30; 
-        if(quantity >= 100 && quantity < 150) return Math.round(quantity*fix_price.q1+bat);
-        if(quantity >= 150 && quantity < 200) return Math.round(quantity*fix_price.q2+bat);
-        if(quantity >= 200 && quantity < 300) return Math.round(quantity*fix_price.q3+bat);
-        if(quantity >= 300 && quantity < 400) return Math.round(quantity*fix_price.q4+bat);
-        if(quantity >= 400 && quantity < 500) return Math.round(quantity*fix_price.q5+bat);
-        if(quantity >= 500 && quantity < 1000) return Math.round(quantity*fix_price.q6+bat);
-        if(quantity >= 1000 && quantity < 2500) return Math.round(quantity*fix_price.q7+bat);
-        if(quantity >= 2500 && quantity < 5000) return Math.round(quantity*fix_price.q8+bat);
-        if(quantity >= 5000) return Math.round(quantity*fix_price.q9+bat);
-        return 0;
-      }
 
     </script>
     <script>
