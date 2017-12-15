@@ -535,7 +535,7 @@ $.ajax(settings)
         <script>
       function computeTheAmount(quantity) {
         var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 1.25, "q5" : 1.10, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
-       var bat = 30; 
+       var bat = 0; 
         if(quantity >= 100 && quantity < 150) return Math.round(quantity*fix_price.q1+bat);
         if(quantity >= 150 && quantity < 200) return Math.round(quantity*fix_price.q2+bat);
         if(quantity >= 200 && quantity < 300) return Math.round(quantity*fix_price.q3+bat);
@@ -566,10 +566,10 @@ $.ajax(settings)
       $(document).on('input change', '#rangebudget', function() {
           if($(this).val() >= 300) {
             var shipping = computeShipping($(this).val());  
-              var price_ht = (computeTheAmount($(this).val())+shipping.regular);
-        var html_computation_price = 'Prix : '+price_ht+' € HT ('+Math.round((computeTheAmount($(this).val())+shipping.regular)*(1+21/100))+' € TTC) <br />'+
+              var price_ht = (computeTheAmount($(this).val()));
+        var html_computation_price = 'Prix : '+price_ht+' € HT ('+Math.round((computeTheAmount($(this).val()))*(1+21/100))+' € TTC) <br />'+
               'Coût unitaire : '+(price_ht/$(this).val()).toFixed(2)+' €/pièces<br />'+
-              '<i>BAT & Livraison 7-10 jours</i>';
+              '<i>BAT & Livraison 7-10 jours non inclus</i>';
 
        $('#computation_price').html(html_computation_price);      
           }
