@@ -118,13 +118,13 @@
             <h4 class="modal-title">Le concept SmartHoldr</h4>
           </div>
           <div class="modal-body" style="text-align:center;">
-            <iframe width="420" height="315"
+            <iframe height="100%" scrolling="no" width="100%"
             src="https://www.youtube.com/embed/lAoBrVCFPdk">
             </iframe>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
           </div>
         </div>
     
@@ -171,7 +171,7 @@
         </div>
       </div>
     </section>
-<!--
+
     <section>
       <div class="container">
         <div class="row">
@@ -181,14 +181,14 @@
           </div>
         </div>
         <div style="text-align:center">
-        <img src="img/video_tease.png" style="width:60%;border-radius:30px;cursor:pointer" id="popupvideo" />
+        <img src="img/video_tease.jpg" style="width:60%;border-radius:30px;cursor:pointer" id="popupvideo" />
         </div>
         </div>
 
     </section>
-  -->
 
-  <section id="devisenligne">
+
+  <section id="devisenligne" style="background-color:#ebebeb;">
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -200,7 +200,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-3 col-md-3" style="text-align:center;">
             <label for="image_pro">
-            <div id="mockup" style="background-color:#F2F2F2;width:212px;height:313px;">
+            <div id="mockup" style="background-color:#FFFFFF;width:212px;height:313px;">
             <img id="img_up" src="img/sample_logo_home.png" style="border: 1px dotted #62B2EB;width:150px;height:150px;top:43%;left:18%" />
           </div>
             </label>
@@ -249,7 +249,7 @@
     </div>
     </section>
 
-    <section id="services" style="background-color:#ebebeb;">
+    <section id="services">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -292,7 +292,7 @@
       </div>
     </section>
 
-    <section id="portfolio" >
+    <section id="portfolio" style="background-color:#ebebeb;" >
       <div class="container text-center">
         <h2>Ils nous ont fait confiance !</h2>
         <hr>
@@ -323,7 +323,7 @@
 
 
 
-    <section id="contact" style="background-color:#ebebeb;">
+    <section id="contact">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
@@ -567,6 +567,8 @@ $.ajax(settings)
               '<i>BAT & Livraison 7-10 jours non inclus</i>';
 
        $('#computation_price').html(html_computation_price);      
+          } else {
+            $('#computation_price').html('');  
           }
     });   
 
