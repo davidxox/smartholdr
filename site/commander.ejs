@@ -150,11 +150,27 @@
               </button>
               <input id="chosen-value" value="FFFFFF" type="text" class="form-control" />
 <br />
+Impression<br />
+<div class="form-check form-check-inline">
+    <label class="form-check-label">
+      <input class="form-check-input" type="checkbox" id="serigraphie" checked> Sérigraphie
+      <small class="form-text text-muted">Gratuit</small>
+    </label>
+  </div>
+  <div class="form-check form-check-inline">
+    <label class="form-check-label">
+      <input class="form-check-input" type="checkbox" id="digital"> Digital+
+      <small class="form-text text-muted">BAT 125 euros</small>
+    </label>
+  </div>          
+  <br />
               Quantité  
                
                     <input class="form-control" id="rangebudget" type="number" min="300" max="10000" />
                     <small class="form-text text-muted">A partir de 300 SmartHoldr</small>
               <br />
+
+
                     <label class="custom-file">
                         <input class="custom-file-input" type="file" id="image_pro" name="image_pro" enctype="multipart/form-data" accept="image/*">
                         <span class="custom-file-control"></span>
@@ -212,7 +228,6 @@
                         <label class="form-check-label">
                           <input class="form-check-input" type="checkbox" id="shipexpress"> Livraison Express     
                           <small class="form-text text-muted">Livraison en 7 jours</small>
-                          
                         </label>
                       </div>
                     </div>
@@ -324,10 +339,14 @@ function computeShipping(quantity) {
       shipping.regular = base_regular;     
       return shipping;
     }
+
 function computeTheAmount(quantity) {
   var fix_price = {"q1" : 1.50, "q2" : 1.45, "q3" : 1.35, "q4" : 0.90, "q6" : 0.80, "q7" : 0.70, "q8" : 0.63, "q9" : 0.50  };
-  var bat = 30; 
-        if(quantity >= 300 && quantity < 500) return Math.round(quantity*fix_price.q5+bat);
+  var bat = 30;
+  if($('#digital').prop('checked')) {
+    bat = 120;
+  }
+        if(quantity >= 300 && quantity < 500) return Math.round(quantity*fix_price.q4+bat);
         if(quantity >= 500 && quantity < 1000) return Math.round(quantity*fix_price.q6+bat);
         if(quantity >= 1000 && quantity < 2500) return Math.round(quantity*fix_price.q7+bat);
         if(quantity >= 2500 && quantity < 5000) return Math.round(quantity*fix_price.q8+bat);
@@ -350,7 +369,6 @@ function computeTheAmount(quantity) {
             $('#pricetopay').val(totalPrice + shipping.regular);
             $('#totalprice').val(totalPrice + shipping.regular);
             $('#sendstripe').html("Payer "+(totalPrice + shipping.regular) + "€");
-            console.log(totalPrice);
   }
     </script>
     <script>
@@ -490,6 +508,26 @@ function computeTheAmount(quantity) {
 
 
       $(document).on('input change', '#rangebudget', function() {
+        $('#digital').change(function() { 
+          var totalPrice = Math.round(computeTheAmount($('#rangebudget').val())*(1+20/100));
+            var shipping = computeShipping($('#rangebudget').val());
+            $('#price').html(computeTheAmount($('#rangebudget').val()) + shipping.regular);
+            $('#ttcprice').html(totalPrice + shipping.regular);
+            $('#finalprice').html((totalPrice + shipping.regular) + "€");
+            $('#pricetopay').val(totalPrice + shipping.regular);
+            $('#totalprice').val(totalPrice + shipping.regular);
+            $('#sendstripe').html("Payer "+(totalPrice + shipping.regular) + "€");          
+        })
+        $('#serigraphie').change(function() { 
+          var totalPrice = Math.round(computeTheAmount($('#rangebudget').val())*(1+20/100));
+            var shipping = computeShipping($('#rangebudget').val());
+            $('#price').html(computeTheAmount($('#rangebudget').val()) + shipping.regular);
+            $('#ttcprice').html(totalPrice + shipping.regular);
+            $('#finalprice').html((totalPrice + shipping.regular) + "€");
+            $('#pricetopay').val(totalPrice + shipping.regular);
+            $('#totalprice').val(totalPrice + shipping.regular);
+            $('#sendstripe').html("Payer "+(totalPrice + shipping.regular) + "€");          
+        })
         var totalPrice = Math.round(computeTheAmount($(this).val())*(1+20/100));
             var shipping = computeShipping($(this).val());
             $('#price').html(computeTheAmount($(this).val()) + shipping.regular);
@@ -499,6 +537,12 @@ function computeTheAmount(quantity) {
             $('#totalprice').val(totalPrice + shipping.regular);
             $('#sendstripe').html("Payer "+(totalPrice + shipping.regular) + "€");
     });
+    $('#digital').change(function() {
+      $('#serigraphie').not(this).prop('checked', false); 
+    })
+    $('#serigraphie').change(function() {
+      $('#digital').not(this).prop('checked', false); 
+    })   
 
     $( "#shipexpress" ).change(function() {
 
