@@ -163,13 +163,17 @@ function chargeClient(req, res) {
           res.send({message : "success"}) 
       
       } else {
-        res.status(404).send({message : "Error in the Stripe API ; no debit"});
+        return res.status(404).send({message : "Error in the Stripe API ; no debit"});
       }
       })
   
     })
-
-
+    .catch(function(error) {
+      return res.status(500).send({
+          code : "ERROR",
+          message: error
+      });
+  });
 }
 
 
