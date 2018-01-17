@@ -322,14 +322,15 @@ Impression<br />
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-
+      var promo_bool = false;
       $('#applypromo').click(function() {
 
         var promo = $('#promo').val();
         if(!promo) { 
           $('#promo').css('border', '1px solid #FA5858');
         } else {
-          var settings = { 
+          if(!promo_bool) {
+            var settings = { 
               "async": true, 
               "crossDomain": true, 
               "url": `/promocode?price=${Math.round($('#pricetopay').val()*100)}&promo=${promo}`, 
@@ -341,10 +342,12 @@ Impression<br />
               $('#error_promo').empty();
               $('#pricetopay').val(response.price);
               $('#sendstripe').html("Payer "+(Math.round(response.price)) + "€"); 
+              promo_bool = true;
             })
             .fail(response => {
               $('#error_promo').html('Ce code promo n\'est pas valide');
             })
+          }
         }
 
       })
