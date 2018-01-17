@@ -176,6 +176,36 @@ function chargeClient(req, res) {
   });
 }
 
+function promoCode(req, res) {
+  let actual_price = req.query.price;
+  let promo = req.query.promo;
+  const prom = [
+    {
+      name : "FS18",
+      percentage : 0.15
+    }
+  ]
+  actual_price /= 100;
+    if(!actual_price || !promo) {
+      return res.status(404).json ({
+        code : 'NO_CODE_OR_PAY',
+        message : 'Pas de code ou de montant précisé'
+      })
+    }
+    const reduction = prom.find(o => o.name === promo);
+      if(reduction) {
+        return res.status(200).json({
+          code : 'OK_NEW_AMOUNT',
+          price : ((1-reduction.percentage)*actual_price)
+        })
+      } else {
+        return res.status(404).json({
+          code : 'NOT_CORRECT_PROMO_CODE',
+          message : 'Code promo non correct'
+        })
+      }
+}
+
 
 function testReq(req, res) {
   var test = req.body.test;
@@ -187,5 +217,6 @@ module.exports = {
   sendEmail,
   uploadImage,
   testReq,
-  chargeClient
+  chargeClient,
+  promoCode
 };

@@ -254,6 +254,15 @@ Impression<br />
               </div>
               <div id="card-errors" role="alert"></div>
               <br />
+              <div class="form-row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <input type="text" class="form-control" placeholder="Code Promo" id="promo">
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <button class="btn btn-primary btn-xl js-scroll-trigger" id="applypromo" style="padding:7px 16px;">Appliquer le code promo</button>
+                </div>
+              </div>
+              <div id="error_promo" style="font-weight:800;color:#FA5858;" role="alert"></div>              
               <label class="form-check-label">
                   <input class="form-check-input" type="checkbox" id="acceptcgv"> J'accepte les <a href="/cgv">conditions générales de ventes</a>
                   
@@ -313,6 +322,34 @@ Impression<br />
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>
+
+      $('#applypromo').click(function() {
+
+        var promo = $('#promo').val();
+        if(!promo) { 
+          $('#promo').css('border', '1px solid #FA5858');
+        } else {
+          var settings = { 
+              "async": true, 
+              "crossDomain": true, 
+              "url": `/promocode?price=${Math.round($('#pricetopay').val()*100)}&promo=${promo}`, 
+              "method": "GET", 
+              "headers": { "content-type": "application/x-www-form-urlencoded" }
+            } 
+            $.ajax(settings)
+            .done(function (response) { 
+              $('#error_promo').empty();
+              $('#pricetopay').val(response.price);
+              $('#sendstripe').html("Payer "+(Math.round(response.price)) + "€"); 
+            })
+            .fail(response => {
+              $('#error_promo').html('Ce code promo n\'est pas valide');
+            })
+        }
+
+      })
+
+
    function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');

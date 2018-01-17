@@ -28,6 +28,7 @@ app.get('/merci', function(req, res) { res.redirect('/'); });
 app.post('/contactus', guestController.sendEmail);
 app.put('/upload', guestController.uploadImage);
 app.post('/test', guestController.testReq);
+app.get('/promocode', guestController.promoCode)
 app.post('/pay', guestController.chargeClient);
 
 app.listen(8080);
