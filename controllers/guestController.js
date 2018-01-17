@@ -29,7 +29,7 @@ function sendEmail(req, res) {
     var name = req.body.name;
     console.log(email, content, name);
               var mail = {
-                   from: email, 
+                   from: 'contact@smartholdr.fr', 
                     to: 'contact@smartholdr.fr',
                     subject: "Une nouvelle demande de contact",
                     html: "Bonjour,<br />Une nouvelle demande de contact de "+name+" ("+email+") a été effectuée.<br /> "+content
