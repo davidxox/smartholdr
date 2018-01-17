@@ -33,6 +33,7 @@
     "html-stringify": "0.0.3",
     "html-to-text": "^3.3.0",
     "moment": "^2.18.1",
+    "morgan": "^1.8.2",
     "nodemailer": "^4.1.1",
     "nodemailer-smtp-transport": "^2.7.4",
     "path": "^0.12.7",

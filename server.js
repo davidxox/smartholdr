@@ -1,6 +1,7 @@
 var express = require('express');
 var guestController = require('./controllers/guestController.js');
 var app = express();
+const logger = require('morgan');
 
 app.enable('trust proxy');
 app.use (function (req, res, next) {
@@ -13,6 +14,7 @@ app.use (function (req, res, next) {
         }
 });
 var bodyParser = require('body-parser');
+app.use(logger('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/', express.static(__dirname + "/site/"));
