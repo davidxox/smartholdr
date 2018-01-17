@@ -183,6 +183,10 @@ function promoCode(req, res) {
     {
       name : "FS18",
       percentage : 0.15
+    },
+    {
+      name : "CPJ18",
+      percentage : 0.15      
     }
   ]
   actual_price /= 100;
