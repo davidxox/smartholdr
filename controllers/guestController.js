@@ -40,6 +40,8 @@ function sendEmail(req, res) {
         message: "Error when sending the email: "+error
       });
                     } else {
+                      console.log(response);
+                      console.log("Send with success to "+email);
                         res.status(201).send({
                           message: "Email send with sucess !"
                         });
