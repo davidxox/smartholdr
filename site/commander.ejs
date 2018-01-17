@@ -262,7 +262,9 @@ Impression<br />
                   <button class="btn btn-primary btn-xl js-scroll-trigger" id="applypromo" style="padding:7px 16px;">Appliquer le code promo</button>
                 </div>
               </div>
-              <div id="error_promo" style="font-weight:800;color:#FA5858;" role="alert"></div>              
+              <div id="error_promo" style="font-weight:800;color:#FA5858;" role="alert"></div>      
+              <div id="success_promo" style="font-weight:800;color:#5cb85c;" role="alert"></div>              
+        
               <label class="form-check-label">
                   <input class="form-check-input" type="checkbox" id="acceptcgv"> J'accepte les <a href="/cgv">conditions générales de ventes</a>
                   
@@ -342,6 +344,7 @@ Impression<br />
               $('#error_promo').empty();
               $('#pricetopay').val(response.price);
               $('#sendstripe').html("Payer "+(Math.round(response.price)) + "€"); 
+              $('#success_promo').html('Votre code promo a été ajouté');
               promo_bool = true;
             })
             .fail(response => {
