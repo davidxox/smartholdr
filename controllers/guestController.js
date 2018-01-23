@@ -3,9 +3,7 @@ var async = require('async');
 var mailer = require("nodemailer");
 var smtpTransportModule = require('nodemailer-smtp-transport');
 var smtpTransport = mailer.createTransport(smtpTransportModule({
-    host: 'ssl0.ovh.net',
-    port: 465,
-    secure: true, // use SSL
+    service: 'gmail',
     auth: {
           user: 'contact@smartholdr.fr',
           pass: 'Holdr2017$'
