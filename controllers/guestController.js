@@ -5,8 +5,8 @@ var smtpTransportModule = require('nodemailer-smtp-transport');
 var smtpTransport = mailer.createTransport(smtpTransportModule({
     service: 'gmail',
     auth: {
-          user: 'contact@smartholdr.fr',
-          pass: 'Holdr2017$'
+          user: 'smartholdr.contact@gmail.com',
+          pass: 'davidadrian'
           }
      })
   );  
@@ -27,8 +27,8 @@ function sendEmail(req, res) {
     var name = req.body.name;
     console.log(email, content, name);
               var mail = {
-                   from: 'contact@smartholdr.fr', 
-                    to: 'contact@smartholdr.fr',
+                   from: 'smartholdr.contact@gmail.com', 
+                    to: 'david.xox@gmail.com, contact@smartholdr.fr, a_zerbib@etu-webschoolfactory.fr',
                     subject: "Une nouvelle demande de contact",
                     html: "Bonjour,<br />Une nouvelle demande de contact de "+name+" ("+email+") a été effectuée.<br /> "+content
                 }; 
